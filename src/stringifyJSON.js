@@ -13,6 +13,7 @@ var stringifyJSON = function(obj) {
       return stringified + stringifyJSON(current) + ',';
     }, '');
 
+    // Remove trailing comma and add ending bracket;
     result = result.replace(/(,$)/, '') + ']';
 
   } else if (obj instanceof Object) {
@@ -25,6 +26,7 @@ var stringifyJSON = function(obj) {
       }
   	}
 
+    // Remove trailing comma nad add ending curly brace
     result = result.replace(/(,$)/, '') + '}';
 
   } else if (typeof obj === 'string') {
