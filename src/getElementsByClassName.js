@@ -5,30 +5,30 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className){
-  // your code here
-  var result = [];
 
-  var checkNode = function(node) {
+  var checkNode = function(node) {    
+    var results = [];
     var children;
     var i;
 
     if (node.classList.contains(className)) {
-      result.push(node);
-    } 
-    
+      results.push(node);
+    }
+
     if (node.hasChildNodes()) {
+
+      // Element.classList.contains() only works with ELEMENT_NODE node types (nodeType === 1)
       children = Array.prototype.filter.call(node.childNodes, function(node) { 
         return node.nodeType === 1; 
       });
 
       for (i = 0; i < children.length; i+=1) {
-        checkNode(children[i]);
+        results = results.concat(checkNode(children[i]));
       }
     }
+    return results;
   }
 
-  checkNode(document.body);
-
-  return result;
+  return checkNode(document.body);
   
 };
